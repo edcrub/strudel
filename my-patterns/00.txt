@@ -1,0 +1,4 @@
+stack(
+  n("3 4 3 2").sound("jazz").pan(0).color("pink").cpm(240/4),
+  n("0 1 [4 3] 2").sound("jazz").pan(1).color("salmon").rev().cpm(240/4)
+).scope()
