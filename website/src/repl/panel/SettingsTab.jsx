@@ -1,7 +1,7 @@
-import React from 'react';
 import { defaultSettings, settingsMap, useSettings } from '../../settings.mjs';
-import { themes } from '../themes.mjs';
+import { themes } from '@strudel/codemirror';
 import { ButtonGroup } from './Forms.jsx';
+import { AudioDeviceSelector } from './AudioDeviceSelector.jsx';
 
 function Checkbox({ label, value, onChange }) {
   return (
@@ -73,7 +73,7 @@ const fontFamilyOptions = {
   mode7: 'mode7',
 };
 
-export function SettingsTab() {
+export function SettingsTab({ started }) {
   const {
     theme,
     keybindings,
@@ -82,32 +82,25 @@ export function SettingsTab() {
     isActiveLineHighlighted,
     isAutoCompletionEnabled,
     isTooltipEnabled,
+    isFlashEnabled,
     isLineWrappingEnabled,
     fontSize,
     fontFamily,
     panelPosition,
+    audioDeviceName,
   } = useSettings();
 
   return (
     <div className="text-foreground p-4 space-y-4">
-      {/* <FormItem label="Tempo">
-        <div className="space-x-4">
-          <button
-            onClick={() => {
-              scheduler.setCps(scheduler.cps - 0.1);
-            }}
-          >
-            slower
-          </button>
-          <button
-            onClick={() => {
-              scheduler.setCps(scheduler.cps + 0.1);
-            }}
-          >
-            faster
-          </button>
-        </div>
-      </FormItem> */}
+      {AudioContext.prototype.setSinkId != null && (
+        <FormItem label="Audio Output Device">
+          <AudioDeviceSelector
+            isDisabled={started}
+            audioDeviceName={audioDeviceName}
+            onChange={(audioDeviceName) => settingsMap.setKey('audioDeviceName', audioDeviceName)}
+          />
+        </FormItem>
+      )}
       <FormItem label="Theme">
         <SelectInput options={themeOptions} value={theme} onChange={(theme) => settingsMap.setKey('theme', theme)} />
       </FormItem>
@@ -173,6 +166,11 @@ export function SettingsTab() {
           label="Enable line wrapping"
           onChange={(cbEvent) => settingsMap.setKey('isLineWrappingEnabled', cbEvent.target.checked)}
           value={isLineWrappingEnabled}
+        />
+        <Checkbox
+          label="Enable flashing on evaluation"
+          onChange={(cbEvent) => settingsMap.setKey('isFlashEnabled', cbEvent.target.checked)}
+          value={isFlashEnabled}
         />
       </FormItem>
       <FormItem label="Zen Mode">Try clicking the logo in the top left!</FormItem>

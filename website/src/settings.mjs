@@ -2,6 +2,7 @@ import { persistentMap, persistentAtom } from '@nanostores/persistent';
 import { useStore } from '@nanostores/react';
 import { register } from '@strudel.cycles/core';
 import * as tunes from './repl/tunes.mjs';
+import { defaultAudioDeviceName } from './repl/panel/AudioDeviceSelector';
 import { logger } from '@strudel.cycles/core';
 
 export const defaultSettings = {
@@ -11,6 +12,7 @@ export const defaultSettings = {
   isActiveLineHighlighted: true,
   isAutoCompletionEnabled: false,
   isTooltipEnabled: false,
+  isFlashEnabled: true,
   isLineWrappingEnabled: false,
   isPatternHighlightingEnabled: true,
   theme: 'strudelTheme',
@@ -19,8 +21,9 @@ export const defaultSettings = {
   latestCode: '',
   isZen: false,
   soundsFilter: 'all',
-  panelPosition: 'bottom',
+  panelPosition: 'right',
   userPatterns: '{}',
+  audioDeviceName: defaultAudioDeviceName,
 };
 
 export const settingsMap = persistentMap('strudel-settings', defaultSettings);
@@ -54,8 +57,9 @@ export function useSettings() {
     isPatternHighlightingEnabled: [true, 'true'].includes(state.isPatternHighlightingEnabled) ? true : false,
     isTooltipEnabled: [true, 'true'].includes(state.isTooltipEnabled) ? true : false,
     isLineWrappingEnabled: [true, 'true'].includes(state.isLineWrappingEnabled) ? true : false,
+    isFlashEnabled: [true, 'true'].includes(state.isFlashEnabled) ? true : false,
     fontSize: Number(state.fontSize),
-    panelPosition: state.activeFooter !== '' ? state.panelPosition : 'bottom',
+    panelPosition: state.activeFooter !== '' ? state.panelPosition : 'bottom', // <-- keep this 'bottom' where it is!
     userPatterns: JSON.parse(state.userPatterns),
   };
 }
