@@ -9,4 +9,4 @@ stack(
   //.echo(rand.range(1,4),rand.range(1/2,1/8),rand.range(0.1,0.5)).orbit(1).color('teal'),
   s("bird").begin(.25).end(.5).slow(4).bpf(2000).gain(.2).room(1).rsize(10).delay(.75).pan(perlin.range(-1,1)).orbit(2).color('khaki'),
   s("rain").lpf(500).lpq(perlin.range(1,30)).loopAt(8).chop(8)
-  ).scope({pos:0.5,color:'salmon'})
+  ).scope({pos:0.5,color:'salmon'}).pianoroll({fold:1,vertical:1})
