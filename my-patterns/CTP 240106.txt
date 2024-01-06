@@ -1,0 +1,29 @@
+stack(
+    s("[bd bd] [~ bd ~ ~]  [bd ~ ~ bd] ~").bank('LinnDrum')
+        //.rarely(ply("4 8"))
+        .sometimes(x => x.gain(".4"))
+        .color('teal'),
+    s("~ sd ~ sd ")
+        //.rarely(ply("4 8"))
+        .rarely(x => x.gain(.4))
+        .color('olive'),
+    s("hh*[8 8 [16 8] 8]")
+        //.rarely(ply("4 8"))
+        .rarely(x => x.gain(".4")),
+    n("[1*2 <5!3 6>] <3!3 7>@2 5*4").scale("a1:locrian").s("gm_synth_bass_2")
+        // .segment(0)
+        // .n(perlin.range(32,64))
+        // .rarely(ply(perlin.range(0,16)))
+        .color('coral'),
+    n("1 5 7 11 9 0").scale("a4:locrian:pentatonic").s("z_sine").clip(.25).segment(0)
+        // .delay(.5).delaytime(0.25)
+        // .echo(6,1/4,0.5)
+        .pan(perlin.range(-1, 1).slow(8))
+        .color('white'),
+    n("[1!7 [5 3]]/4").scale("a3:locrian").s("gm_choir_aahs").release(2).segment(0)
+        // .rarely(ply(8))
+        .rarely(x => x.gain(.4))
+        .room(.75).sz(5).orbit(3)
+        .color('pink')
+).cpm(70 / 4).room(0.5).sz(2).rlp(1500)
+    .pianoroll({ fold: 1, vertical: 1 })
