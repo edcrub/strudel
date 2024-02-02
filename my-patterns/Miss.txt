@@ -1,0 +1,5 @@
+stack(
+  // n("1".add("0@2 | 5@3 | 7@3 | 11@2").slow(perlin.range(0,2))) .scale('C:locrian').s("dantranh_tremolo").lpf(perlin.range(500,2000)) .attack(0.8).release(2).shape(0.4).gain(perlin.range(0,0.5).slow(2)).room(0.7).rsize(4).pan(perlin.range(-1,1)),
+  n("[1 3 5 7]*3".add("<0@3 5@2>")).scale('C3:locrian 6').s("<z_sine sine>/8") .echo(4,1/8,0.6),
+  n(rand.range(0,12).segment(8).slow(16)).scale('C:locrian').lpf(800).s("gm_flute").release(2)
+  ).scope({pos:0.5})
