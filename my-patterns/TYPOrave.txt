@@ -28,6 +28,6 @@ stack(
   stack(
     s("bd:6(4,8)"),
     // s("sd:6(3,8,2)").fast(2).gain(0.3),
-  ).fast(1).mask("0")
+  ).fast(0.5).mask("0")
 
 ).fast(1)
