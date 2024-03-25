@@ -26,8 +26,8 @@ stack(
     // .echo(3,1/16,.5)
     .pianoroll({fold:2,height:150,width:800,overscan:4}).mask("1"),
   stack(
-    s("bd:6"),
-    s("sd:6(4,8,0)").gain(0.3),
-  ).mask("0")
+    s("bd:6(4,8)"),
+    s("sd:6(3,8,2)").gain(0.3),
+  ).fast(2).mask("0")
 
 ).fast(1)
