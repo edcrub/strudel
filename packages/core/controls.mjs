@@ -191,7 +191,7 @@ export const { attack, att } = registerControl('attack', 'att');
  * note("c e g b g e")
  * .fm(4)
  * .fmh("<1 2 1.5 1.61>")
- * .scope()
+ * ._scope()
  *
  */
 export const { fmh } = registerControl(['fmh', 'fmi'], 'fmh');
@@ -205,7 +205,7 @@ export const { fmh } = registerControl(['fmh', 'fmi'], 'fmh');
  * @example
  * note("c e g b g e")
  * .fm("<0 1 2 8 32>")
- * .scope()
+ * ._scope()
  *
  */
 export const { fmi, fm } = registerControl(['fmi', 'fmh'], 'fm');
@@ -221,7 +221,7 @@ export const { fmi, fm } = registerControl(['fmi', 'fmh'], 'fm');
  * .fmdecay(.2)
  * .fmsustain(0)
  * .fmenv("<exp lin>")
- * .scope()
+ * ._scope()
  *
  */
 export const { fmenv } = registerControl('fmenv');
@@ -234,7 +234,7 @@ export const { fmenv } = registerControl('fmenv');
  * note("c e g b g e")
  * .fm(4)
  * .fmattack("<0 .05 .1 .2>")
- * .scope()
+ * ._scope()
  *
  */
 export const { fmattack } = registerControl('fmattack');
@@ -248,7 +248,7 @@ export const { fmattack } = registerControl('fmattack');
  * .fm(4)
  * .fmdecay("<.01 .05 .1 .2>")
  * .fmsustain(.4)
- * .scope()
+ * ._scope()
  *
  */
 export const { fmdecay } = registerControl('fmdecay');
@@ -262,7 +262,7 @@ export const { fmdecay } = registerControl('fmdecay');
  * .fm(4)
  * .fmdecay(.1)
  * .fmsustain("<1 .75 .5 0>")
- * .scope()
+ * ._scope()
  *
  */
 export const { fmsustain } = registerControl('fmsustain');
@@ -392,7 +392,7 @@ export const { loop } = registerControl('loop');
  * @synonyms loopb
  * @example
  * s("space").loop(1)
- * .loopBegin("<0 .125 .25>").scope()
+ * .loopBegin("<0 .125 .25>")._scope()
  */
 export const { loopBegin, loopb } = registerControl('loopBegin', 'loopb');
 /**
@@ -405,7 +405,7 @@ export const { loopBegin, loopb } = registerControl('loopBegin', 'loopb');
  * @synonyms loope
  * @example
  * s("space").loop(1)
- * .loopEnd("<1 .75 .5 .25>").scope()
+ * .loopEnd("<1 .75 .5 .25>")._scope()
  */
 export const { loopEnd, loope } = registerControl('loopEnd', 'loope');
 /**
@@ -553,7 +553,7 @@ export const { cutoff, ctf, lpf, lp } = registerControl(['cutoff', 'resonance', 
  * @example
  * note("c2 e2 f2 g2")
  * .sound('sawtooth')
- * .lpf(500)
+ * .lpf(300)
  * .lpa(.5)
  * .lpenv("<4 2 1 0 -1 -2 -4>/4")
  */
@@ -592,7 +592,7 @@ export const { bpenv, bpe } = registerControl('bpenv', 'bpe');
  * @example
  * note("c2 e2 f2 g2")
  * .sound('sawtooth')
- * .lpf(500)
+ * .lpf(300)
  * .lpa("<.5 .25 .1 .01>/4")
  * .lpenv(4)
  */
@@ -631,9 +631,8 @@ export const { bpattack, bpa } = registerControl('bpattack', 'bpa');
  * @example
  * note("c2 e2 f2 g2")
  * .sound('sawtooth')
- * .lpf(500)
+ * .lpf(300)
  * .lpd("<.5 .25 .1 0>/4")
- * .lps(0.2)
  * .lpenv(4)
  */
 export const { lpdecay, lpd } = registerControl('lpdecay', 'lpd');
@@ -673,7 +672,7 @@ export const { bpdecay, bpd } = registerControl('bpdecay', 'bpd');
  * @example
  * note("c2 e2 f2 g2")
  * .sound('sawtooth')
- * .lpf(500)
+ * .lpf(300)
  * .lpd(.5)
  * .lps("<0 .25 .5 1>/4")
  * .lpenv(4)
@@ -716,7 +715,7 @@ export const { bpsustain, bps } = registerControl('bpsustain', 'bps');
  * note("c2 e2 f2 g2")
  * .sound('sawtooth')
  * .clip(.5)
- * .lpf(500)
+ * .lpf(300)
  * .lpenv(4)
  * .lpr("<.5 .25 .1 0>/4")
  * .release(.5)
@@ -766,6 +765,15 @@ export const { bprelease, bpr } = registerControl('bprelease', 'bpr');
  * .ftype("<ladder 12db 24db>")
  */
 export const { ftype } = registerControl('ftype');
+
+/**
+ * controls the center of the filter envelope. 0 is unipolar positive, .5 is bipolar, 1 is unipolar negative
+ * @name fanchor
+ * @param {number | Pattern} center 0 to 1
+ * @example
+ * note("{f g g c d a a#}%8").s("sawtooth").lpf("{1000}%2")
+ * .lpenv(8).fanchor("<0 .5 1>")
+ */
 export const { fanchor } = registerControl('fanchor');
 /**
  * Applies the cutoff frequency of the **h**igh-**p**ass **f**ilter.
@@ -792,10 +800,12 @@ export const { fanchor } = registerControl('fanchor');
  * @example
  * note("a e")
  * .vib("<.5 1 2 4 8 16>")
+ * ._scope()
  * @example
  * // change the modulation depth with ":"
  * note("a e")
  * .vib("<.5 1 2 4 8 16>:12")
+ * ._scope()
  */
 export const { vib, vibrato, v } = registerControl(['vib', 'vibmod'], 'vibrato', 'v');
 /**
@@ -816,10 +826,12 @@ export const { noise } = registerControl('noise');
  * @example
  * note("a e").vib(4)
  * .vibmod("<.25 .5 1 2 12>")
+ * ._scope()
  * @example
  * // change the vibrato frequency with ":"
  * note("a e")
  * .vibmod("<.25 .5 1 2 12>:8")
+ * ._scope()
  */
 export const { vibmod, vmod } = registerControl(['vibmod', 'vib'], 'vmod');
 export const { hcutoff, hpf, hp } = registerControl(['hcutoff', 'hresonance', 'hpenv'], 'hpf', 'hp');
