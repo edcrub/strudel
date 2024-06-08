@@ -10,13 +10,13 @@ import cx from '@src/cx.mjs';
 import { transpiler } from '@strudel/transpiler';
 import {
   getAudioContext,
-  initAudioOnFirstClick,
   webaudioOutput,
   resetGlobalEffects,
   resetLoadedSounds,
+  initAudioOnFirstClick,
 } from '@strudel/webaudio';
 import { defaultAudioDeviceName } from '../settings.mjs';
-import { getAudioDevices, setAudioDevice } from './util.mjs';
+import { getAudioDevices, setAudioDevice, setVersionDefaultsFrom } from './util.mjs';
 import { StrudelMirror, defaultSettings } from '@strudel/codemirror';
 import { clearHydra } from '@strudel/hydra';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -42,9 +42,10 @@ import { getMetadata } from '../metadata_parser';
 
 const { latestCode } = settingsMap.get();
 
-let modulesLoading, presets, drawContext, clearCanvas, isIframe;
+let modulesLoading, presets, drawContext, clearCanvas, isIframe, audioReady;
+
 if (typeof window !== 'undefined') {
-  initAudioOnFirstClick();
+  audioReady = initAudioOnFirstClick();
   modulesLoading = loadModules();
   presets = prebake();
   drawContext = getDrawContext();
@@ -88,12 +89,14 @@ export function Repl({ embedded = false }) {
           clearHydra();
         }
       },
+      beforeEval: () => audioReady,
       afterEval: (all) => {
         const { code } = all;
         setLatestCode(code);
         window.location.hash = '#' + code2hash(code);
         setDocumentTitle(code);
         const viewingPatternData = getViewingPatternData();
+        setVersionDefaultsFrom(code);
         const data = { ...viewingPatternData, code };
         let id = data.id;
         const isExamplePattern = viewingPatternData.collection !== userPattern.collection;
@@ -114,6 +117,7 @@ export function Repl({ embedded = false }) {
       },
       bgFill: false,
     });
+    window.strudelMirror = editor;
 
     // init settings
 
