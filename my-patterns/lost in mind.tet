@@ -1,0 +1,123 @@
+samples({
+  break : 'loop/140-bpm-amen-break-original.wav'
+},'github:edcrub/samp')
+
+setcps(.2)
+
+
+let balafon = s("balafon").gain(1)
+.velocity("<.25 .35>*8").delay(.5).delayfeedback(.5).delaytime(1).rsize(5).room(10)
+
+let tweety = s("gm_bird_tweet").gain(.8)
+.velocity("<.25 .35>*8").delay(.5).delayfeedback(.5).delaytime(.75).rsize(10).room(5)
+
+let line1 = n("[0 [[4 5]] [1 -] <2 2 [9 2]> [5 4] [2] [- 1] [<- - 8> <[1] 0>]]")
+.scale("E1:melodic:minor").s("gm_acoustic_bass")
+.velocity("[.3 .35 .2 .4 .5 .3 .4 .2 ]".add(.8)).lpf(222).lpq(3)
+  .lpenv(1).lpa(.2)
+.penv("[0 -.2 0 0 0 -.3 1 0]").shape(.4)
+
+let line2 = n("{6@3 4@3 2@3 0@3  0@3 <0 7>}%16")
+  .scale("E1:melodic:minor").s("gm_acoustic_bass")
+.velocity("[.4 .35 .42 .3 .4 .3]".add(.8)).lpf(222).lpq(3).lpenv(-1).lpa(.15).penv("[0 -.2 0 0 0 -.3 1 0]")
+  .shape(.4)
+
+let line3 = n("{7 6@2 4 4@2 2 2@2 0 0@2  0@3 <0 2>}%16")
+  .scale("E1:melodic:minor").s("gm_acoustic_bass")
+.velocity("[.4 .35 .42 .3 .4 .3]".add(.8)).lpf(444).lpq(3).lpenv(-.4).lpa(.15)
+  .penv("[0 -.2 0 0 0 -.3 1 0]").shape(.4)
+
+let ambience1 = n(`[
+[0, 2, 4]
+[0, 3, 5]
+<[[2, 4, 5#]] [[2, 4, 5#]@7 [9, 11, 12#]] [[2, 4, 5#]]>
+<[[ 3, 4, 7, 10]] [[ 3, 4, 5#, 7, 10]@3 [2, 4, 5, 6]]>
+]/4`
+)
+.scale("E3:melodic:minor").s("gm_epiano2:2").fm(1.4)
+.lpf(555).lpq(2).dec(2.5)
+.vib("7:.3")
+.velocity(sine.range(.2, .3).slow(15))
+.superimpose(x=>x.delay("[.5:.9:<.4 .4 .4 .4 .4 .9>]"))
+
+let ambience2 = n(
+  `<
+[0, 2, 4, 14]
+[0, 3, 5, 11]
+[[2, 4, 5#, 10]]
+<[[ 3, 4, 7, 12]] [[ 3, 4, 5#, 7, 10, 11]@3 [2, 4, 5, 6, 11]]>
+>`
+.when("< 0 0 0 0 0 1>", x=>x.add.squeeze("[0 7]")) 
+)
+.scale("E3:melodic:minor").s("gm_epiano2:2").fm(1.4).fmi("<1>")
+  .lpf(555).lpq(2).dec(2.5)
+.vib("7:.3")
+.velocity(sine.range(.2, .3).slow(15))
+.superimpose(x=>x.delay("[.5:.9:<.4 .4 .4 .4 .4 .9>]"))
+
+//note("c [a <bb ab>] <b g>")
+//.add.squeeze(note("0 12*2"))
+
+// adding octave to absolute notes: "c e g".when("<0 1>", x=>x.add.squeeze("12")).note()
+// Em, A, Fm phrygian 
+let ambience3 = n(`[
+[0, 2, 4, <9 11>]@7 <- - [-3, 2, 4, <10>] ->
+<[0, 3, 5, 7] [ 3, 5,  8, 9]>@9
+]/2`
+.when("< 0 0 0 0 0 1>", x=>x.add.squeeze("[0 7]"))
+)
+.scale("E3:melodic:minor").s("gm_epiano2:2")
+  .fm(1.4).fmh(5).fmattack("<.3 .4 .2 .7>/2")
+  .fmsustain(.75)
+.fmdecay("<.7>")
+.lpf(555).lpq(2).dec(2.5)
+.vib("7:.3")
+.velocity(sine.range(.2, .3).slow(15))
+.superimpose(x=>x.delay("[.5:.9:<.4>]"))
+
+let run1 = n(run(16)).rev().chord("<Em A>").voicing().s("sine").fm(sine.range(1, 16).slow(5.3))
+  .fmh(tri.range(1, 1.01).slow(3))
+  .bpf(1111).bpq(2)
+.superimpose(x => x.late(1/8).superimpose(x => x.late(1/32)))
+  .velocity(.175)
+
+let run2 = n(run("<16 18 18>")).rev().chord("<Em A7 Em A6>").voicing().s("sine").fm(sine.range(4, 18).slow(5.3))
+  .fmh(tri.range(1, 1.005).slow(3))
+  .bpf(sine.range(777, 2222).slow(3)).bpq(2)
+.superimpose(x => x.late(1/8).superimpose(x => x.late(1/32)))
+  .velocity(.165)
+
+
+let line1n =n("[0 [[6 7]] <[1] [1]> <2 2 [9 2]> [4 3] [2] [<6 6 3>] [<[1][8]> <0 0 0 10>]]")
+.scale("E1:minor").s("gm_acoustic_bass")
+.velocity("[.3 .35 .2 .4 .5 .3 .4 .2 ]".add(.8)).lpf(333).lpq(3)
+.penv("[0 -.2 0 0 0 -.3 0 0]")
+  .shape(.3)
+
+x2: s("break").loopAt(2).chop("<16!20 8!2 16!10>").velocity("<.25 .45>*8")
+  .struct(`<
+    x(8,8)!8 
+  x(8,8)!3 
+  x(11,16)
+  x(8,8)!3 
+  x(13,16)
+    >`)
+.when("<0!24 1!4 0!20>", x=>x.shape(.1).lpf(saw.range(222, 3333).slow(4)).lpq(saw.range(8, 2).slow(4))
+       .delay("[.5:<0.01 0.02 0.03 0.04 0.05 0.06 0.07 [0.08 0.11]>*2:.5]"))
+  
+.when("<0!30 1!4 0!12>", x=>x.lpf(3333).shape(.3).superimpose(x=>x.late(saw.range(.00005, 0.007).slow(4))))
+
+x3: stack(
+arrange([8, ambience1], [8, ambience2], [8, ambience3])
+,
+arrange([16, line1], [4, line2], [4, line3],
+        [8, line1], [8, line1n], [4, line2], [4, line3])
+  ,
+arrange([8, silence], [12, silence], [4, run1], [8, silence], [12, silence], [4, run2])
+  ,
+  arrange([5, silence],[1, balafon],[4, silence], [2, tweety],[3, silence],[2, tweety],[1, balafon], [6, silence])
+)
+  
+  .when("<0!24 1!4 0!20>", x=>x.shape(.1).lpf(saw.range(222, 3333).slow(4)).lpq(saw.range(6, 2).slow(4)))
+  
+.pianoroll()
