@@ -39,6 +39,7 @@ let ambience1 = n(`[
 .vib("7:.3")
 .velocity(sine.range(.2, .3).slow(15))
 .superimpose(x=>x.delay("[.5:.9:<.4 .4 .4 .4 .4 .9>]"))
+.room(3).rsize(5)
 
 let ambience2 = n(
   `<
@@ -54,12 +55,14 @@ let ambience2 = n(
 .vib("7:.3")
 .velocity(sine.range(.2, .3).slow(15))
 .superimpose(x=>x.delay("[.5:.9:<.4 .4 .4 .4 .4 .9>]"))
+.room(3).rsize(5)
 
 //note("c [a <bb ab>] <b g>")
 //.add.squeeze(note("0 12*2"))
 
 // adding octave to absolute notes: "c e g".when("<0 1>", x=>x.add.squeeze("12")).note()
 // Em, A, Fm phrygian 
+
 let ambience3 = n(`[
 [0, 2, 4, <9 11>]@7 <- - [-3, 2, 4, <10>] ->
 <[0, 3, 5, 7] [ 3, 5,  8, 9]>@9
@@ -74,6 +77,7 @@ let ambience3 = n(`[
 .vib("7:.3")
 .velocity(sine.range(.2, .3).slow(15))
 .superimpose(x=>x.delay("[.5:.9:<.4>]"))
+.room(3).rsize(5)
 
 let run1 = n(run(16)).rev().chord("<Em A>").voicing().s("sine").fm(sine.range(1, 16).slow(5.3))
   .fmh(tri.range(1, 1.01).slow(3))
