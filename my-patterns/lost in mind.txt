@@ -12,18 +12,18 @@ let tweety = s("gm_bird_tweet").gain(.8)
 .velocity("<.25 .35>*8").delay(.5).delayfeedback(.5).delaytime(.75).rsize(10).room(5)
 
 let line1 = n("[0 [[4 5]] [1 -] <2 2 [9 2]> [5 4] [2] [- 1] [<- - 8> <[1] 0>]]")
-.scale("E1:melodic:minor").s("gm_acoustic_bass")
+.scale("A1:melodic:minor").s("gm_acoustic_bass")
 .velocity("[.3 .35 .2 .4 .5 .3 .4 .2 ]".add(.8)).lpf(222).lpq(3)
   .lpenv(1).lpa(.2)
 .penv("[0 -.2 0 0 0 -.3 1 0]").shape(.4)
 
 let line2 = n("{6@3 4@3 2@3 0@3  0@3 <0 7>}%16")
-  .scale("E1:melodic:minor").s("gm_acoustic_bass")
+  .scale("A1:melodic:minor").s("gm_acoustic_bass")
 .velocity("[.4 .35 .42 .3 .4 .3]".add(.8)).lpf(222).lpq(3).lpenv(-1).lpa(.15).penv("[0 -.2 0 0 0 -.3 1 0]")
   .shape(.4)
 
 let line3 = n("{7 6@2 4 4@2 2 2@2 0 0@2  0@3 <0 2>}%16")
-  .scale("E1:melodic:minor").s("gm_acoustic_bass")
+  .scale("A1:melodic:minor").s("gm_acoustic_bass")
 .velocity("[.4 .35 .42 .3 .4 .3]".add(.8)).lpf(444).lpq(3).lpenv(-.4).lpa(.15)
   .penv("[0 -.2 0 0 0 -.3 1 0]").shape(.4)
 
@@ -34,7 +34,7 @@ let ambience1 = n(`[
 <[[ 3, 4, 7, 10]] [[ 3, 4, 5#, 7, 10]@3 [2, 4, 5, 6]]>
 ]/4`
 )
-.scale("E3:melodic:minor").s("gm_epiano2:2").fm(1.4)
+.scale("A3:melodic:minor").s("gm_epiano2:2").fm(1.4)
 .lpf(555).lpq(2).dec(2.5)
 .vib("7:.3")
 .velocity(sine.range(.2, .3).slow(15))
@@ -50,18 +50,18 @@ let ambience2 = n(
 >`
 .when("< 0 0 0 0 0 1>", x=>x.add.squeeze("[0 7]")) 
 )
-.scale("E3:melodic:minor").s("gm_epiano2:2").fm(1.4).fmi("<1>")
+.scale("A3:melodic:minor").s("gm_epiano2:2").fm(1.4).fmi("<1>")
   .lpf(555).lpq(2).dec(2.5)
 .vib("7:.3")
 .velocity(sine.range(.2, .3).slow(15))
 .superimpose(x=>x.delay("[.5:.9:<.4 .4 .4 .4 .4 .9>]"))
 .room(3).rsize(5)
 
-//note("c [a <bb ab>] <b g>")
+//note("d [a <bb ab>] <b a>")
 //.add.squeeze(note("0 12*2"))
 
-// adding octave to absolute notes: "c e g".when("<0 1>", x=>x.add.squeeze("12")).note()
-// Em, A, Fm phrygian 
+// adding octave to absolute notes: "d e a".when("<0 1>", x=>x.add.squeeze("12")).note()
+// Em, A, F#m phrygian 
 
 let ambience3 = n(`[
 [0, 2, 4, <9 11>]@7 <- - [-3, 2, 4, <10>] ->
@@ -69,7 +69,7 @@ let ambience3 = n(`[
 ]/2`
 .when("< 0 0 0 0 0 1>", x=>x.add.squeeze("[0 7]"))
 )
-.scale("E3:melodic:minor").s("gm_epiano2:2")
+.scale("A3:melodic:minor").s("gm_epiano2:2")
   .fm(1.4).fmh(5).fmattack("<.3 .4 .2 .7>/2")
   .fmsustain(.75)
 .fmdecay("<.7>")
@@ -79,7 +79,7 @@ let ambience3 = n(`[
 .superimpose(x=>x.delay("[.5:.9:<.4>]"))
 .room(3).rsize(5)
 
-let run1 = n(run(16)).rev().chord("<Em A>").voicing().s("sine").fm(sine.range(1, 16).slow(5.3))
+let run1 = n(run(16)).rev().chord("<Am E>").voicing().s("sine").fm(sine.range(1, 16).slow(5.3))
   .fmh(tri.range(1, 1.01).slow(3))
   .bpf(1111).bpq(2)
 .superimpose(x => x.late(1/8).superimpose(x => x.late(1/32)))
@@ -93,7 +93,7 @@ let run2 = n(run("<16 18 18>")).rev().chord("<Em A7 Em A6>").voicing().s("sine")
 
 
 let line1n =n("[0 [[6 7]] <[1] [1]> <2 2 [9 2]> [4 3] [2] [<6 6 3>] [<[1][8]> <0 0 0 10>]]")
-.scale("E1:minor").s("gm_acoustic_bass")
+.scale("A1:minor").s("gm_acoustic_bass")
 .velocity("[.3 .35 .2 .4 .5 .3 .4 .2 ]".add(.8)).lpf(333).lpq(3)
 .penv("[0 -.2 0 0 0 -.3 0 0]")
   .shape(.3)
