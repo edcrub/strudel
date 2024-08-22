@@ -1,0 +1,45 @@
+setcpm(60/4)
+
+
+let chords =("<[A|C9] Am11 FM7 <Dm9 Dm11>>")
+let line1= n(run("8,16,4"))
+      .chord(chords)
+      .mode("below")
+      .voicing()
+  .gain(0.10)
+  .jux(off(0.5,degradeBy(.25)))
+  .degradeBy(.2)
+  // .rev()
+  .delay(".75:.5:.75")
+  .gain(0.07)
+.pianoroll()
+
+
+let line2= n("0 [2 4] <3 5> [~ <4 1>]".sub("2"))
+  .scale("d1:iwato")
+  .sound("gm_dulcimer")
+  .euclidLegato(irand(15),16)
+  .room(.4).delay(".125:.2:.125")
+  .gain(0.4)
+  .pan(1)
+  .color("salmon")
+._scope({pos:.5})
+
+
+let line3= n("0 [2 4] <3 5> [~ <7 1>]".add("5"))
+  .scale("d1:persian")
+  .sound("gm_kalimba:2")
+  .fm(4).fmh(2)
+  .room(1)
+  .delay(".2:.25:.95")
+   .pan(0)
+.color("pink")
+._scope({pos:.5})
+
+
+x1: stack(
+  arrange([16,line1.mask(0)],[16,line1.mask(1)],[16,line1.rev().mask(1)]),
+  arrange([8,line2]).mask(1),
+  arrange([4,line3.segment(1)],[4,line3.segment(4)],[16,line3.segment(8)])
+
+)
