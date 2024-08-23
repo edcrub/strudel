@@ -1,0 +1,6 @@
+setcpm(60/2)
+
+s("hh*4, [bd sd]*2").color("pink")._scope()
+.stack(
+  note("[c4 g4]").euclidRot(5,8,irand(6)).delay(".2,.6,.8")
+).color("teal").pianoroll({vertical:1})
