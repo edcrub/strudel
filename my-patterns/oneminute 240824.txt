@@ -1,0 +1,17 @@
+setcpm(60/2)
+
+let bass = n("<0 2 1 3 2>*8")
+  .scale("<A1 D2>/4:minor:pentatonic")
+  .s("supersaw")
+.lpf(300).lpenv("<4 3 2>*4")
+.color("salmon")
+.scope({pos:.25})
+
+let drum = s("hh*8, [bd sd]*2")
+  .color("pink")
+._scope()
+
+x1 :stack(
+  arrange([32,bass.juxBy("<1 .25 .5>/4",rev)],[8,bass.jux(off(.5),degrade(".95"))]),
+  arrange([32,drum])
+)
