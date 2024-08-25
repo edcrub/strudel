@@ -13,5 +13,5 @@ let drum = s("hh*8, [bd sd]*2")
 
 x1 :stack(
   arrange([32,bass.juxBy("<1 .25 .5>/4",rev)],[8,bass.jux(off(.5),degrade(".95"))]),
-  arrange([32,drum])
+  arrange([32,drum],[8,drum])
 )
