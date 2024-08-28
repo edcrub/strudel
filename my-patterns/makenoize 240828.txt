@@ -1,0 +1,10 @@
+await initHydra()
+noise(15,.9)
+  .rotate(({time})=>(time%180)/4)
+  .color(.2,4,5)
+  .out()
+
+
+n("[62,44,56,<a4 ab4 g4 gb4>,45]/2")
+.s("sawtooth").vib(20)
+.lpf(300).lpa(10).lpr(60).lpq(30).lpe("<4 2 1 -4>/4")
