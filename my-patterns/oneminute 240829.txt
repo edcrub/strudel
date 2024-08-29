@@ -1,0 +1,18 @@
+await initHydra()
+osc(1,.2,.0).color(255,26,255).out(o1)
+osc(1,0,0.5)  .modulate(o0,220).add(o1,.2).modulatePixelate(o1,10,10)
+.out()
+
+samples({
+  break : 'loop/808 Finlandia.wav'
+},'github:edcrub/samp')
+
+x1: n("2 4 7 9").scale("<A2 D2>/4:iwato").euclidRot(5,8,irand(7))
+.s("z_sine").vib(perlin.range(4,20))
+.lpf(300).lpr(60).lpq("<2 4 6>").delay(.2,.5,.25)
+  .color("salmon")
+.pianoroll()
+
+x2: s("break").loopAt(2).chop("<16!20 8!2 16!10>").velocity("<.25 .45>*8")
+  .room(.5).ph(16).color("pink")
+._scope()
